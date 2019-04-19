@@ -1,0 +1,40 @@
+package com.techelevator.controller;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.techelevator.model.User;
+import com.techelevator.model.DAO.FamilyDAO;
+import com.techelevator.model.DAO.UserDAO;
+
+@Controller
+public class UserController {
+
+	private UserDAO userDAO;
+	private FamilyDAO familyDAO;
+
+	@Autowired
+	public UserController(UserDAO userDAO) {
+		this.userDAO = userDAO;
+		this.familyDAO = familyDAO;
+	}
+
+	@RequestMapping(path="/users/new", method=RequestMethod.GET)
+	public String displayNewUserForm(ModelMap modelHolder) {
+		if( ! modelHolder.containsAttribute("user")) {
+			modelHolder.addAttribute("user", new User());
+		}
+		return "newUser";
+	}
+	
+	
+	
+}
